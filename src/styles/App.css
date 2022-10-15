@@ -1,0 +1,23 @@
+#root {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.user-card {
+  background-color: rebeccapurple;
+}
+
+.user-card__active {
+  background-color: green;
+}
+
+.user-card__inactive {
+  background-color: red;
+}
+
+.user-cards-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}

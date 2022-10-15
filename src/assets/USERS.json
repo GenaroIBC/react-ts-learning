@@ -1,0 +1,17 @@
+[
+  {
+    "name": "@johndoe",
+    "active": false,
+    "since": "2017-06-12T00:00:00"
+  },
+  {
+    "name": "@esteb_an",
+    "active": true,
+    "since": "2011-11-09T02:21:45"
+  },
+  {
+    "name": "@zeulfa_an",
+    "active": false,
+    "since": "2021-03-01T10:30:09"
+  }
+]
