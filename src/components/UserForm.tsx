@@ -1,37 +1,37 @@
-import { useState } from "react";
+import { useUserFormReducer } from "../hooks/useUserFormReducer";
 import { User } from "../interfaces/User";
 
-interface Props {
+interface FormProps {
   handleNewUser: (user: User) => void;
 }
 
-export function UserForm({ handleNewUser }: Props) {
-  const [inputValues, setInputValues] = useState({
-    name: "",
-    active: false,
-    since: "",
-  });
+export function UserForm({ handleNewUser }: FormProps) {
+  const [inputValues, formDispatch] = useUserFormReducer();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-
-    setInputValues(prevValues => ({
-      ...prevValues,
-      [e.target.name]:
-        e.target.name === "active" ? e.target.checked : e.target.value,
-    }));
+    const { name, value, checked } = e.target;
+    formDispatch({
+      type: "MODIFY_FIELD",
+      payload: {
+        inputName: name,
+        inputValue: name === "active" ? checked : value,
+      },
+    });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     handleNewUser(inputValues);
+
+    formDispatch({ type: "CLEAR_FORM" });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="name">Name</label>
       <input
+        value={inputValues.name}
         required
         onChange={handleChange}
         id="name"
@@ -42,6 +42,7 @@ export function UserForm({ handleNewUser }: Props) {
 
       <label htmlFor="since">Since</label>
       <input
+        value={inputValues.since}
         required
         onChange={handleChange}
         id="since"
@@ -52,6 +53,7 @@ export function UserForm({ handleNewUser }: Props) {
 
       <label htmlFor="active">Active</label>
       <input
+        checked={inputValues.active}
         onChange={handleChange}
         id="active"
         name="active"
